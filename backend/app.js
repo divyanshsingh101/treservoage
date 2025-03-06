@@ -8,10 +8,20 @@ import initializePassport from './middlewares/passport-config.js';
 import MongoStore from 'connect-mongo';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js'; 
+import leaderboardRoutes from './routes/leaderboard.js'
+import participantRoutes from './routes/participant.js'
+import cors from "cors";
 dotenv.config();
 
 
 let app = express();
+app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow requests from this frontend
+    credentials: true, // Allow cookies and authentication headers
+  })
+);
 dbConnect();
 // authentication system
 initializePassport(passport,process.env.GOOGLE_CLIENT_ID,process.env.GOOGLE_CLIENT_SECRET);
@@ -46,6 +56,8 @@ app.listen('3000',()=>{
 })
 // Routes
 app.use('/auth', authRoutes);
+app.use('/leaderboard',leaderboardRoutes);
+app.use('/participant',participantRoutes);
 
 app.get('/',async(req,res)=>{
     res.send("hello there ...");
