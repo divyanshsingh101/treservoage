@@ -1,47 +1,43 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { LogIn, LogOut, UserPlus, Home } from 'lucide-react';
 
 function Navbar() {
   const { user, logout } = useAuth();
-  console.log(user);
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              College Treasure Hunt
-            </span>
-          </Link>
-          <div className="space-x-4">
-            {user ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-gray-600">Welcome, {user.name}</span>
-                <button
-                  onClick={logout}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
-          </div>
+    <nav className="bg-[#f5f5f5] shadow-sm p-4 border-b border-gray-200">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-2 text-gray-800 font-medium text-lg">
+          <Home className="w-5 h-5 text-gray-700" /> College Treasure Hunt
+        </Link>
+        <div className="flex items-center space-x-4">
+          {user ? (
+            <div className="flex items-center space-x-4">
+              <span className="text-gray-600">Welcome, {user.name}</span>
+              <button
+                onClick={logout}
+                className="flex items-center px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg transition shadow-sm"
+              >
+                <LogOut className="w-5 h-5 mr-2 text-gray-700" /> Logout
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="flex items-center px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg transition shadow-sm"
+              >
+                <LogIn className="w-5 h-5 mr-2 text-gray-700" /> Login
+              </Link>
+              <Link
+                to="/signup"
+                className="flex items-center px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg transition shadow-sm"
+              >
+                <UserPlus className="w-5 h-5 mr-2 text-gray-700" /> Sign Up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
